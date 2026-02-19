@@ -1,0 +1,117 @@
+{
+  "tags": [
+    {
+      "name": "Motor_Control",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Motor_Speed",
+          "tagType": "AtomicTag",
+          "value": ""
+        },
+        {
+          "name": "Motor_Speed_Alarm",
+          "tagType": "UdtInstance",
+          "parameters": {
+            "DataBlock": {
+              "value": "Motor_Control"
+            }
+          },
+          "tags": [
+            {
+              "name": "Configuration",
+              "tagType": "Folder",
+              "tags": [
+                {
+                  "name": "Alarm_Description",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                },
+                {
+                  "name": "Label",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Motor_Temp",
+          "tagType": "AtomicTag",
+          "value": ""
+        },
+        {
+          "name": "Motor_Temp_Alarm",
+          "tagType": "UdtInstance",
+          "parameters": {
+            "DataBlock": {
+              "value": "Motor_Control"
+            }
+          },
+          "tags": [
+            {
+              "name": "Configuration",
+              "tagType": "Folder",
+              "tags": [
+                {
+                  "name": "Alarm_Description",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                },
+                {
+                  "name": "Label",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pump_System",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Pump_Status",
+          "tagType": "AtomicTag",
+          "value": ""
+        },
+        {
+          "name": "Pump_Pressure",
+          "tagType": "AtomicTag",
+          "value": ""
+        },
+        {
+          "name": "High_Pressure_Alarm",
+          "tagType": "UdtInstance",
+          "parameters": {
+            "DataBlock": {
+              "value": "Pump_System"
+            }
+          },
+          "tags": [
+            {
+              "name": "Configuration",
+              "tagType": "Folder",
+              "tags": [
+                {
+                  "name": "Alarm_Description",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                },
+                {
+                  "name": "Label",
+                  "tagType": "AtomicTag",
+                  "value": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
