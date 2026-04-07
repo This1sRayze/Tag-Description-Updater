@@ -430,9 +430,14 @@ class DescriptionUpdaterUI:
                     # Get UDT type name for checking ANALOG/ANL
                     udt_type = tag.get("type", "").upper()
                     is_analog_udt = "ANALOG" in udt_type or "ANL" in udt_type
+                    if is_analog_udt:
+                        self.log(f"      [DEBUG] Detected ANALOG UDT: {udt_type}\n")
                     # Only use Method 1: Find Configuration/Alarm_Description structure
+                    config_found = False
                     for config_tag in tag.get("tags", []):
                         if config_tag.get("name") == "Configuration" and config_tag.get("tagType") == "Folder":
+                            config_found = True
+                            substance_updated = False
                             for sub_tag in config_tag.get("tags", []):
                                 if sub_tag.get("name") == "Alarm_Description":
                                     sub_tag["value"] = description_text
@@ -449,17 +454,29 @@ class DescriptionUpdaterUI:
                                 # For TANKS data block, determine and set Substance
                                 elif sub_tag.get("name") == "Substance" and data_block and data_block.upper() == "TANKS":
                                     substance = self.determine_substance(tag_name, origin_text, description_text)
+                                    old_value = sub_tag.get("value", "")
                                     if substance:
                                         sub_tag["value"] = substance
+                                        self.log(f"      └─ Substance (TANKS): '{old_value}' → '{substance}' ✓\n")
                                         updated_count += 1
+                                        substance_updated = True
+                                    else:
+                                        self.log(f"      └─ Substance (TANKS): No keyword match (keeping '{old_value}')\n")
                                 # For ANALOG/ANL UDTs, determine and set Substance
                                 elif sub_tag.get("name") == "Substance" and is_analog_udt:
                                     substance = self.determine_substance_analog(tag_name, origin_text, description_text)
+                                    old_value = sub_tag.get("value", "")
                                     if substance:
                                         sub_tag["value"] = substance
+                                        self.log(f"      └─ Substance (ANALOG): '{old_value}' → '{substance}' ✓\n")
                                         updated_count += 1
+                                        substance_updated = True
+                                    else:
+                                        self.log(f"      └─ Substance (ANALOG): No keyword match (keeping '{old_value}')\n")
                             # Log after updating fields
                             self.log(f"   ✓ {lookup_key} -> {description_text}\n")
+                    if not config_found:
+                        self.log(f"      [WARN] No 'Configuration/Folder' found in UDT structure\n")
                 # Recursively process nested tags
                 if len(tag.get("tags", [])) > 0:
                     updated_count += self.find_and_update_descriptions(
