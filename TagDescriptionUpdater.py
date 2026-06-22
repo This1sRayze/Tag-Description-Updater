@@ -358,8 +358,8 @@ class DescriptionUpdaterUI:
                 tag_name = row[1]  # Column B: Tag Name
                 is_alarm = row[5] if len(row) > 5 else False  # Column F: Is Alarm
                 alarm_priority = row[6] if len(row) > 6 else None  # Column G: Alarm Priority
-                origin = row[7] if len(row) > 7 else None  # Column H: Origin
-                description = row[8] if len(row) > 8 else None  # Column I: Description
+                origin = row[8] if len(row) > 8 else None  # Column I: Origin
+                description = row[9] if len(row) > 9 else None  # Column J: Description
                 # Apply alarm filter if enabled
                 if filter_alarms and not is_alarm:
                     continue
